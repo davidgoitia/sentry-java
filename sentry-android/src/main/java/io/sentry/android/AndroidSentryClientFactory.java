@@ -91,7 +91,7 @@ public class AndroidSentryClientFactory extends DefaultSentryClientFactory {
             }
 
             if (info != null && !Util.isNullOrEmpty(info.packageName)) {
-                List<String> newPackages = new ArrayList<>(1);
+                List<String> newPackages = new ArrayList<String>(1);
                 newPackages.add(info.packageName);
                 return newPackages;
             }

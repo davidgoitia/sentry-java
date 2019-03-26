@@ -26,10 +26,10 @@ public class HttpInterfaceBindingTest extends BaseTest {
     @Test
     public void testHeaders() throws Exception {
         final JsonGeneratorParser jsonGeneratorParser = newJsonGenerator();
-        final Map<String, Collection<String>> headers = new HashMap<>();
+        final Map<String, Collection<String>> headers = new HashMap<String, Collection<String>>();
         headers.put("Header1", Lists.newArrayList("Value1"));
         headers.put("Header2", Lists.newArrayList("Value1", "Value2"));
-        final HashMap<String, String> cookies = new HashMap<>();
+        final HashMap<String, String> cookies = new HashMap<String, String>();
         cookies.put("Cookie1", "Value1");
         new NonStrictExpectations() {{
             mockMessageInterface.getHeaders();
@@ -69,12 +69,12 @@ public class HttpInterfaceBindingTest extends BaseTest {
     @Test
     public void testBodyWithParameters() throws Exception {
         final JsonGeneratorParser jsonGeneratorParser = newJsonGenerator();
-        final Map<String, Collection<String>> headers = new HashMap<>();
+        final Map<String, Collection<String>> headers = new HashMap<String, Collection<String>>();
         headers.put("Header1", Lists.newArrayList("Value1"));
         headers.put("Header2", Lists.newArrayList("Value1", "Value2"));
-        final HashMap<String, String> cookies = new HashMap<>();
+        final HashMap<String, String> cookies = new HashMap<String, String>();
         cookies.put("Cookie1", "Value1");
-        final HashMap<String, Collection<String>> parameters = new HashMap<>();
+        final HashMap<String, Collection<String>> parameters = new HashMap<String, Collection<String>>();
         parameters.put("Parameter1", Lists.newArrayList("Value1"));
         parameters.put("Parameter2", Lists.newArrayList("Value2", "Value3"));
         new NonStrictExpectations() {{

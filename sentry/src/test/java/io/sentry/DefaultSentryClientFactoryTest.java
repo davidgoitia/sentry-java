@@ -30,17 +30,17 @@ public class DefaultSentryClientFactoryTest extends BaseTest {
         assertThat(sentryClient.getEnvironment(), is(environment));
         assertThat(sentryClient.getServerName(), is(serverName));
 
-        Map<String, String> tagsMap = new HashMap<>();
+        Map<String, String> tagsMap = new HashMap<String, String>();
         tagsMap.put("foo", "bar");
         tagsMap.put("qux", "baz");
         assertThat(sentryClient.getTags(), is(tagsMap));
 
-        Set<String> extraTagsSet = new HashSet<>();
+        Set<String> extraTagsSet = new HashSet<String>();
         extraTagsSet.add("aaa");
         extraTagsSet.add("bbb");
         assertThat(sentryClient.getMdcTags(), is(extraTagsSet));
 
-        Map<String, Object> extrasMap = new HashMap<>();
+        Map<String, Object> extrasMap = new HashMap<String, Object>();
         extrasMap.put("red", "blue");
         extrasMap.put("green", "yellow");
         assertThat(sentryClient.getExtra(), is(extrasMap));

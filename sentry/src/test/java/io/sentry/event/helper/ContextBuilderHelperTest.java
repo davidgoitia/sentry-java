@@ -53,11 +53,11 @@ public class ContextBuilderHelperTest {
         final Event event = eventBuilder.getEvent();
         final UserInterface userInterface = (UserInterface) event.getSentryInterfaces().get(UserInterface.USER_INTERFACE);
 
-        final Map<String, Object> extra = new HashMap<>();
+        final Map<String, Object> extra = new HashMap<String, Object>();
         extra.put("extra1", "value1");
         extra.put("extra2", 2);
 
-        final Map<String, String> tags = new HashMap<>();
+        final Map<String, String> tags = new HashMap<String, String>();
         tags.put("tag1", "value1");
         tags.put("tag2", "value2");
 

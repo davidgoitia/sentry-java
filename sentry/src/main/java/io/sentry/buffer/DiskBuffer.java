@@ -47,8 +47,8 @@ public class DiskBuffer implements Buffer {
         }
 
         logger.debug(Integer.toString(getNumStoredEvents())
-            + " stored events found in dir: "
-            + bufferDir.getAbsolutePath());
+                + " stored events found in dir: "
+                + bufferDir.getAbsolutePath());
     }
 
     /**
@@ -61,29 +61,43 @@ public class DiskBuffer implements Buffer {
     public void add(Event event) {
         if (getNumStoredEvents() >= maxEvents) {
             logger.warn("Not adding Event because at least "
-                + Integer.toString(maxEvents) + " events are already stored: " + event.getId());
+                    + Integer.toString(maxEvents) + " events are already stored: " + event.getId());
             return;
         }
 
         File eventFile = new File(bufferDir.getAbsolutePath(), event.getId().toString() + FILE_SUFFIX);
         if (eventFile.exists()) {
             logger.trace("Not adding Event to offline storage because it already exists: "
-                + eventFile.getAbsolutePath());
+                    + eventFile.getAbsolutePath());
             return;
         } else {
             logger.debug("Adding Event to offline storage: " + eventFile.getAbsolutePath());
         }
 
-        try (FileOutputStream fileOutputStream = new FileOutputStream(eventFile);
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+        FileOutputStream fileOutputStream = null;
+        ObjectOutputStream objectOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(eventFile);
+            objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(event);
         } catch (Exception e) {
             logger.error("Error writing Event to offline storage: " + event.getId(), e);
+        } finally {
+            try {
+                if (fileOutputStream != null) {
+                    fileOutputStream.close();
+                }
+                if (objectOutputStream != null) {
+                    objectOutputStream.close();
+                }
+            } catch (IOException e) {
+                logger.error("Error writing Event to offline storage: " + event.getId(), e);
+            }
         }
 
         logger.debug(Integer.toString(getNumStoredEvents())
-            + " stored events are now in dir: "
-            + bufferDir.getAbsolutePath());
+                + " stored events are now in dir: "
+                + bufferDir.getAbsolutePath());
     }
 
     /**
@@ -111,8 +125,11 @@ public class DiskBuffer implements Buffer {
     private Event fileToEvent(File eventFile) {
         Object eventObj;
 
-        try (FileInputStream fileInputStream = new FileInputStream(new File(eventFile.getAbsolutePath()));
-             ObjectInputStream ois = new ObjectInputStream(fileInputStream)) {
+        FileInputStream fileInputStream = null;
+        ObjectInputStream ois = null;
+        try  {
+            fileInputStream = new FileInputStream(new File(eventFile.getAbsolutePath()));
+            ois = new ObjectInputStream(fileInputStream);
             eventObj = ois.readObject();
         } catch (FileNotFoundException e) {
             // event was deleted while we were iterating the array of files
@@ -123,6 +140,17 @@ public class DiskBuffer implements Buffer {
                 logger.warn("Failed to delete Event: " + eventFile.getAbsolutePath());
             }
             return null;
+        } finally {
+            try {
+                if (fileInputStream != null) fileInputStream.close();
+                if (ois != null) ois.close();
+            }catch (IOException e) {
+                logger.error("Error reading Event file: " + eventFile.getAbsolutePath(), e);
+                if (!eventFile.delete()) {
+                    logger.warn("Failed to delete Event: " + eventFile.getAbsolutePath());
+                }
+                return null;
+            }
         }
 
         try {
@@ -165,7 +193,7 @@ public class DiskBuffer implements Buffer {
      * is called</b>. Note that files may not deserialize correctly, may be corrupted,
      * or may be missing on disk by the time we attempt to open them - so some care is taken to
      * only return valid {@link Event}s.
-     *
+     * <p>
      * If Events are written to disk after this Iterator is created they <b>will not</b> be returned
      * by this Iterator.
      *

@@ -85,10 +85,10 @@ public class AndroidEventBuilderHelper implements EventBuilderHelper {
 
     //CHECKSTYLE.OFF: JavadocMethod
     protected Map<String, Map<String, Object>> getContexts() {
-        Map<String, Map<String, Object>> contexts = new HashMap<>();
-        Map<String, Object> deviceMap = new HashMap<>();
-        Map<String, Object> osMap     = new HashMap<>();
-        Map<String, Object> appMap    = new HashMap<>();
+        Map<String, Map<String, Object>> contexts = new HashMap<String, Map<String, Object>>();
+        Map<String, Object> deviceMap = new HashMap<String, Object>();
+        Map<String, Object> osMap     = new HashMap<String, Object>();
+        Map<String, Object> appMap    = new HashMap<String, Object>();
         contexts.put("os",     osMap);
         contexts.put("device", deviceMap);
         contexts.put("app", appMap);

@@ -145,7 +145,7 @@ public class JsonMarshallerTest extends BaseTest {
 
     @Test
     public void testEventSdkWrittenProperly() throws Exception {
-        HashSet<String> integrations = new HashSet<>();
+        HashSet<String> integrations = new HashSet<String>();
         integrations.add("integration1");
         integrations.add("integration2");
         final Sdk sdk = new Sdk("sdkName", "sdkVersion", integrations);
@@ -287,7 +287,7 @@ public class JsonMarshallerTest extends BaseTest {
             .setMessage("test2")
             .build();
 
-        final List<Breadcrumb> breadcrumbs = new ArrayList<>();
+        final List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
         breadcrumbs.add(breadcrumb1);
         breadcrumbs.add(breadcrumb2);
 
@@ -305,14 +305,14 @@ public class JsonMarshallerTest extends BaseTest {
     public void testEventContextsWrittenProperly() throws Exception {
         final JsonOutputStreamParser jsonOutputStreamParser = newJsonOutputStream();
 
-        final HashMap<String, Map<String, Object>> contexts = new HashMap<>();
-        HashMap<String, Object> context1 = new HashMap<>();
+        final HashMap<String, Map<String, Object>> contexts = new HashMap<String, Map<String, Object>>();
+        HashMap<String, Object> context1 = new HashMap<String, Object>();
         context1.put("context1key1", "context1value1");
         context1.put("context1key2", 12);
         context1.put("context1key3", 1.3);
         context1.put("context1key4", true);
 
-        HashMap<String, Object> context2 = new HashMap<>();
+        HashMap<String, Object> context2 = new HashMap<String, Object>();
         context2.put("context2key1", "context2value1");
         context2.put("context2key2", 22);
         context2.put("context2key3", 2.3);

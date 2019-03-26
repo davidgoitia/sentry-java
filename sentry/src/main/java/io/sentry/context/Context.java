@@ -87,7 +87,7 @@ public class Context implements Serializable {
             return Collections.emptyList();
         }
 
-        List<Breadcrumb> copyList = new ArrayList<>(breadcrumbs.size());
+        List<Breadcrumb> copyList = new ArrayList<Breadcrumb>(breadcrumbs.size());
         copyList.addAll(breadcrumbs);
         return copyList;
     }
@@ -126,7 +126,7 @@ public class Context implements Serializable {
      */
     public synchronized void addTag(String name, String value) {
         if (tags == null) {
-            tags = new HashMap<>();
+            tags = new HashMap<String, String>();
         }
 
         tags.put(name, value);
@@ -160,7 +160,7 @@ public class Context implements Serializable {
      */
     public synchronized void addExtra(String name, Object value) {
         if (extra == null) {
-            extra = new HashMap<>();
+            extra = new HashMap<String, Object>();
         }
 
         extra.put(name, value);
@@ -219,7 +219,7 @@ public class Context implements Serializable {
      */
     public synchronized void recordBreadcrumb(Breadcrumb breadcrumb) {
         if (breadcrumbs == null) {
-            breadcrumbs = new CircularFifoQueue<>(breadcrumbLimit);
+            breadcrumbs = new CircularFifoQueue<Breadcrumb>(breadcrumbLimit);
         }
 
         breadcrumbs.add(breadcrumb);

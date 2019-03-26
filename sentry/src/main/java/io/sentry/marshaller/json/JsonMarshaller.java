@@ -122,7 +122,7 @@ public class JsonMarshaller implements Marshaller {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonMarshaller.class);
     private final JsonFactory jsonFactory = new JsonFactory();
-    private final Map<Class<? extends SentryInterface>, InterfaceBinding<?>> interfaceBindings = new HashMap<>();
+    private final Map<Class<? extends SentryInterface>, InterfaceBinding<?>> interfaceBindings = new HashMap<Class<? extends SentryInterface>, InterfaceBinding<?>>();
     /**
      * Enables disables the compression of JSON.
      */
@@ -157,12 +157,15 @@ public class JsonMarshaller implements Marshaller {
             destination = new GZIPOutputStream(destination);
         }
 
-        try (JsonGenerator generator = createJsonGenerator(destination)) {
+        JsonGenerator generator = null;
+        try {
+            generator = createJsonGenerator(destination);
             writeContent(generator, event);
         } catch (IOException e) {
             logger.error("An exception occurred while serialising the event.", e);
         } finally {
             try {
+                generator.close();
                 destination.close();
             } catch (IOException e) {
                 logger.error("An exception occurred while serialising the event.", e);

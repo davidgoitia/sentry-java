@@ -25,7 +25,7 @@ public class StackTraceInterfaceBinding implements InterfaceBinding<StackTraceIn
     private static final String IN_APP_PARAMETER = "in_app";
     private static final String VARIABLES_PARAMETER = "vars";
     private static final String PLATFORM_PARAMTER = "platform";
-    private static List<Pattern> inAppBlacklistRegexps = new ArrayList<>();
+    private static List<Pattern> inAppBlacklistRegexps = new ArrayList<Pattern>();
     private Collection<String> inAppFrames = Collections.emptyList();
     private boolean removeCommonFramesWithEnclosing = true;
 

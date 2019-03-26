@@ -45,7 +45,7 @@ public abstract class AbstractConnection implements Connection {
      */
     protected AbstractConnection(String publicKey, String secretKey) {
         this.lockdownManager = new LockdownManager();
-        this.eventSendCallbacks = new HashSet<>();
+        this.eventSendCallbacks = new HashSet<EventSendCallback>();
         this.authHeader = "Sentry sentry_version=" + SENTRY_PROTOCOL_VERSION + ","
             + "sentry_client=" + SentryEnvironment.getSentryName() + ","
             + "sentry_key=" + publicKey

@@ -59,21 +59,21 @@ public class SentryClient {
      * <p>
      * Might be empty in which case no tags are added to the events.
      */
-    protected Map<String, String> tags = new HashMap<>();
+    protected Map<String, String> tags = new HashMap<String, String>();
     /**
      * Tags to extract from the MDC system and set on {@link io.sentry.event.Event}s, where applicable.
      */
-    protected Set<String> mdcTags = new HashSet<>();
+    protected Set<String> mdcTags = new HashSet<String>();
     /**
      * Extra data to be sent to sentry.
      * <p>
      * Might be empty in which case no extra data is added to the events.
      */
-    protected Map<String, Object> extra = new HashMap<>();
+    protected Map<String, Object> extra = new HashMap<String, Object>();
     /**
      * Set of callbacks that are checked before each {@link Event} is sent to Sentry.
      */
-    private final Set<ShouldSendEventCallback> shouldSendEventCallbacks = new HashSet<>();
+    private final Set<ShouldSendEventCallback> shouldSendEventCallbacks = new HashSet<ShouldSendEventCallback>();
     /**
      * The underlying {@link Connection} to use for sending events to Sentry.
      */
@@ -81,7 +81,7 @@ public class SentryClient {
     /**
      * List of {@link EventBuilderHelper}s.
      */
-    private final List<EventBuilderHelper> builderHelpers = new CopyOnWriteArrayList<>();
+    private final List<EventBuilderHelper> builderHelpers = new CopyOnWriteArrayList<EventBuilderHelper>();
     /**
      * The {@link ContextManager} to use for locating and storing data that is context specific,
      * such as {@link io.sentry.event.Breadcrumb}s.
@@ -133,7 +133,9 @@ public class SentryClient {
 
         try {
             connection.send(event);
-        } catch (LockedDownException | TooManyRequestsException e) {
+        } catch (LockedDownException e) {
+            logger.debug("Dropping an Event due to lockdown: " + event);
+        } catch (TooManyRequestsException e) {
             logger.debug("Dropping an Event due to lockdown: " + event);
         } catch (Exception e) {
             logger.error("An exception occurred while sending the event to Sentry.", e);
@@ -314,7 +316,7 @@ public class SentryClient {
      */
     public void setTags(Map<String, String> tags) {
         if (tags == null) {
-            this.tags = new HashMap<>();
+            this.tags = new HashMap<String, String>();
         } else {
             this.tags = tags;
         }
@@ -338,7 +340,7 @@ public class SentryClient {
      */
     public void setMdcTags(Set<String> mdcTags) {
         if (mdcTags == null) {
-            this.mdcTags = new HashSet<>();
+            this.mdcTags = new HashSet<String>();
         } else {
             this.mdcTags = mdcTags;
         }
@@ -381,7 +383,7 @@ public class SentryClient {
      */
     public void setExtra(Map<String, Object> extra) {
         if (extra == null) {
-            this.extra = new HashMap<>();
+            this.extra = new HashMap<String, Object>();
         } else {
             this.extra = extra;
         }

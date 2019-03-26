@@ -77,7 +77,7 @@ public class UserBuilder {
      */
     public UserBuilder withData(String name, Object value) {
         if (this.data == null) {
-            this.data = new HashMap<>();
+            this.data = new HashMap<String, Object>();
         }
 
         this.data.put(name, value);

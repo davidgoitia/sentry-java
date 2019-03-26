@@ -2,6 +2,7 @@ package io.sentry;
 
 import io.sentry.config.Lookup;
 import io.sentry.dsn.Dsn;
+import io.sentry.dsn.InvalidDsnException;
 import io.sentry.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +54,15 @@ public abstract class SentryClientFactory {
                 try {
                     factoryClass = (Class<? extends SentryClientFactory>) Class.forName(sentryClientFactoryName);
                     sentryClientFactory = factoryClass.newInstance();
-                } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+                } catch (ClassNotFoundException e) {
+                    logger.error("Error creating SentryClient using factory class: '"
+                        + sentryClientFactoryName + "'.", e);
+                    return null;
+                } catch (IllegalAccessException e) {
+                    logger.error("Error creating SentryClient using factory class: '"
+                        + sentryClientFactoryName + "'.", e);
+                    return null;
+                } catch (InstantiationException e) {
                     logger.error("Error creating SentryClient using factory class: '"
                         + sentryClientFactoryName + "'.", e);
                     return null;
@@ -71,7 +80,7 @@ public abstract class SentryClientFactory {
             }
 
             return new Dsn(dsn);
-        } catch (Exception e) {
+        } catch (InvalidDsnException e) {
             logger.error("Error creating valid DSN from: '{}'.", dsn, e);
             throw e;
         }

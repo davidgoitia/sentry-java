@@ -50,7 +50,7 @@ public class UserTest extends BaseTest {
             .withMessage("Some random message")
             .withLevel(Event.Level.INFO));
 
-        final Map<String, Object> map = new HashMap<>();
+        final Map<String, Object> map = new HashMap<String, Object>();
         map.put("foo", "bar");
         map.put("baz", 2);
 

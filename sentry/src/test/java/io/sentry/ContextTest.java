@@ -26,7 +26,7 @@ public class ContextTest extends BaseTest {
             .build();
         context.recordBreadcrumb(breadcrumb);
 
-        List<Breadcrumb> breadcrumbMatch = new ArrayList<>();
+        List<Breadcrumb> breadcrumbMatch = new ArrayList<Breadcrumb>();
         breadcrumbMatch.add(breadcrumb);
 
         assertThat(context.getBreadcrumbs(), equalTo(breadcrumbMatch));
@@ -53,7 +53,7 @@ public class ContextTest extends BaseTest {
         context.recordBreadcrumb(breadcrumb1);
         context.recordBreadcrumb(breadcrumb2);
 
-        List<Breadcrumb> breadcrumbMatch = new ArrayList<>();
+        List<Breadcrumb> breadcrumbMatch = new ArrayList<Breadcrumb>();
         breadcrumbMatch.add(breadcrumb2);
 
         assertThat(context.getBreadcrumbs(), equalTo(breadcrumbMatch));
@@ -86,7 +86,7 @@ public class ContextTest extends BaseTest {
         assertThat(context.getTags(), equalTo(Collections.<String, String>emptyMap()));
 
         context.addTag("foo", "bar");
-        Map<String, String> matchingTags = new HashMap<>();
+        Map<String, String> matchingTags = new HashMap<String, String>();
         matchingTags.put("foo", "bar");
         assertThat(context.getTags(), equalTo(matchingTags));
 
@@ -104,7 +104,7 @@ public class ContextTest extends BaseTest {
         assertThat(context.getExtra(), equalTo(Collections.<String, Object>emptyMap()));
 
         context.addExtra("foo", "bar");
-        Map<String, Object> matchingExtras = new HashMap<>();
+        Map<String, Object> matchingExtras = new HashMap<String, Object>();
         matchingExtras.put("foo", "bar");
         assertThat(context.getExtra(), equalTo(matchingExtras));
 

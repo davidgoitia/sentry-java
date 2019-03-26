@@ -38,7 +38,7 @@ public class EventBuilder {
     private static final HostnameCache HOSTNAME_CACHE = new HostnameCache(HOSTNAME_CACHE_DURATION);
     private final Event event;
     private boolean alreadyBuilt = false;
-    private Set<String> sdkIntegrations = new HashSet<>();
+    private Set<String> sdkIntegrations = new HashSet<String>();
 
     /**
      * Creates a new EventBuilder to prepare a new {@link Event}.
@@ -108,7 +108,7 @@ public class EventBuilder {
         event.setBreadcrumbs(Collections.unmodifiableList(event.getBreadcrumbs()));
 
         // Make the contexts unmodifiable
-        Map<String, Map<String, Object>> tempContexts = new HashMap<>();
+        Map<String, Map<String, Object>> tempContexts = new HashMap<String, Map<String, Object>>();
         for (Map.Entry<String, Map<String, Object>> contextEntry : event.getContexts().entrySet()) {
             tempContexts.put(contextEntry.getKey(), Collections.unmodifiableMap(contextEntry.getValue()));
         }
@@ -357,7 +357,7 @@ public class EventBuilder {
      * @return the current {@code EventBuilder} for chained calls.
      */
     public EventBuilder withFingerprint(String... fingerprint) {
-        List<String> list = new ArrayList<>(fingerprint.length);
+        List<String> list = new ArrayList<String>(fingerprint.length);
         Collections.addAll(list, fingerprint);
         event.setFingerprint(list);
         return this;
@@ -538,7 +538,7 @@ public class EventBuilder {
 
             try {
                 logger.debug("Updating the hostname cache");
-                FutureTask<Void> futureTask = new FutureTask<>(hostRetriever);
+                FutureTask<Void> futureTask = new FutureTask<Void>(hostRetriever);
                 new Thread(futureTask).start();
                 futureTask.get(GET_HOSTNAME_TIMEOUT, TimeUnit.MILLISECONDS);
             } catch (Exception e) {

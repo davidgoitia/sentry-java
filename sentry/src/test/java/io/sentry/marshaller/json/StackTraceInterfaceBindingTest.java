@@ -111,7 +111,7 @@ public class StackTraceInterfaceBindingTest extends BaseTest {
             result = new SentryStackTraceElement[]{stackTraceElement1, stackTraceElement2, stackTraceElement3};
         }};
 
-        List<String> inAppModules = new ArrayList<>();
+        List<String> inAppModules = new ArrayList<String>();
         inAppModules.add("inAppModule");
         interfaceBinding.setInAppFrames(inAppModules);
         interfaceBinding.writeInterface(jsonGeneratorParser.generator(), mockStackTraceInterface);

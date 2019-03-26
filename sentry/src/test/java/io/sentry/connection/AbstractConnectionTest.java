@@ -153,7 +153,7 @@ public class AbstractConnectionTest extends BaseTest {
             }
 
         };
-        HashSet<EventSendCallback> callbacks = new HashSet<>();
+        HashSet<EventSendCallback> callbacks = new HashSet<EventSendCallback>();
         callbacks.add(callback);
 
         setField(abstractConnection, "eventSendCallbacks", callbacks);
@@ -178,7 +178,7 @@ public class AbstractConnectionTest extends BaseTest {
             }
 
         };
-        HashSet<EventSendCallback> callbacks = new HashSet<>();
+        HashSet<EventSendCallback> callbacks = new HashSet<EventSendCallback>();
         callbacks.add(callback);
 
         setField(abstractConnection, "eventSendCallbacks", callbacks);

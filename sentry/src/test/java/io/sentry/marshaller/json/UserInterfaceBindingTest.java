@@ -29,7 +29,7 @@ public class UserInterfaceBindingTest extends BaseTest {
         final String username = "3eaa555a-e813-4778-9852-7c1880bf0fd7";
         final String email = "9bcade34-a58c-4616-9de7-bc8b456c96de";
         final String ipAddress = "9a1a658b-6f74-43ae-9e45-0f89f4c5fcb4";
-        final Map<String, Object> data = new HashMap<>();
+        final Map<String, Object> data = new HashMap<String, Object>();
         data.put("foo", "bar");
         data.put("baz", 2);
         data.put("qux", null);

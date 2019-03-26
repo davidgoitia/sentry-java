@@ -7,13 +7,13 @@ import java.util.*;
  * information for the last thrown exception.
  */
 public final class FrameCache {
-    private static Set<String> appPackages = new HashSet<>();
+    private static Set<String> appPackages = new HashSet<String>();
 
     private static ThreadLocal<WeakHashMap<Throwable, Frame[]>> cache =
         new ThreadLocal<WeakHashMap<Throwable, Frame[]>>() {
             @Override
             protected WeakHashMap<Throwable, Frame[]> initialValue() {
-                return new WeakHashMap<>();
+                return new WeakHashMap<Throwable, Frame[]>();
             }
         };
 

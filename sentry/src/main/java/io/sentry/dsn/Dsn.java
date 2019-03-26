@@ -52,8 +52,8 @@ public class Dsn {
             throw new InvalidDsnException("DSN constructed with null value!");
         }
 
-        options = new HashMap<>();
-        protocolSettings = new HashSet<>();
+        options = new HashMap<String, String>();
+        protocolSettings = new HashSet<String>();
 
         extractProtocolInfo(dsn);
         extractUserKeys(dsn);
@@ -188,7 +188,7 @@ public class Dsn {
      * Mandatory elements are the {@link #host}, {@link #publicKey} and {@link #projectId}.
      */
     private void validate() {
-        List<String> missingElements = new LinkedList<>();
+        List<String> missingElements = new LinkedList<String>();
         if (host == null) {
             missingElements.add("host");
         }

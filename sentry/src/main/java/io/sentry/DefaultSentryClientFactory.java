@@ -223,7 +223,7 @@ public class DefaultSentryClientFactory extends SentryClientFactory {
     private static final Logger logger = LoggerFactory.getLogger(DefaultSentryClientFactory.class);
     private static final String FALSE = Boolean.FALSE.toString();
 
-    private static final Map<String, RejectedExecutionHandler> REJECT_EXECUTION_HANDLERS = new HashMap<>();
+    private static final Map<String, RejectedExecutionHandler> REJECT_EXECUTION_HANDLERS = new HashMap<String, RejectedExecutionHandler>();
     static {
         REJECT_EXECUTION_HANDLERS.put(ASYNC_QUEUE_SYNC, new ThreadPoolExecutor.CallerRunsPolicy());
         REJECT_EXECUTION_HANDLERS.put(ASYNC_QUEUE_DISCARDNEW, new ThreadPoolExecutor.DiscardPolicy());
@@ -377,9 +377,9 @@ public class DefaultSentryClientFactory extends SentryClientFactory {
         BlockingDeque<Runnable> queue;
         int queueSize = getAsyncQueueSize(dsn);
         if (queueSize == -1) {
-            queue = new LinkedBlockingDeque<>();
+            queue = new LinkedBlockingDeque<Runnable>();
         } else {
-            queue = new LinkedBlockingDeque<>(queueSize);
+            queue = new LinkedBlockingDeque<Runnable>(queueSize);
         }
 
         ExecutorService executorService = new ThreadPoolExecutor(
@@ -528,7 +528,7 @@ public class DefaultSentryClientFactory extends SentryClientFactory {
             return Collections.emptyList();
         }
 
-        List<String> inAppPackages = new ArrayList<>();
+        List<String> inAppPackages = new ArrayList<String>();
         for (String inAppPackage : inAppFramesOption.split(",")) {
             if (!inAppPackage.trim().equals("")) {
                 inAppPackages.add(inAppPackage);

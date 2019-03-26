@@ -93,7 +93,7 @@ public class BreadcrumbBuilder {
      */
     public BreadcrumbBuilder withData(String name, String value) {
         if (this.data == null) {
-            this.data = new HashMap<>();
+            this.data = new HashMap<String, String>();
         }
 
         this.data.put(name, value);

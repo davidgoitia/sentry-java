@@ -64,7 +64,7 @@ public class BreadcrumbTest extends BaseTest {
             .setCategory("step")
             .build();
 
-        ArrayList<Breadcrumb> breadcrumbs = new ArrayList<>();
+        ArrayList<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
         breadcrumbs.add(breadcrumb);
 
         sentryClient.sendEvent(new EventBuilder()
@@ -89,7 +89,7 @@ public class BreadcrumbTest extends BaseTest {
             .setCategory("step")
             .build();
 
-        ArrayList<Breadcrumb> breadcrumbs = new ArrayList<>();
+        ArrayList<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
         breadcrumbs.add(breadcrumb);
 
         sentryClient.sendEvent(new EventBuilder()

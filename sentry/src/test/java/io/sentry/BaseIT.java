@@ -67,7 +67,7 @@ public class BaseIT extends BaseTest {
 
     public List<UnmarshalledEvent> getStoredEvents() {
         JsonUnmarshaller unmarshaller = new JsonUnmarshaller();
-        List<UnmarshalledEvent> events = new ArrayList<>();
+        List<UnmarshalledEvent> events = new ArrayList<UnmarshalledEvent>();
 
         for (ServeEvent serveEvent : wireMockRule.getAllServeEvents()) {
             if (serveEvent.getResponse().getStatus() == 200) {

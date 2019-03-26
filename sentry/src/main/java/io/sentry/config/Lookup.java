@@ -117,7 +117,10 @@ public final class Lookup {
                 if (value != null) {
                     logger.debug("Found {}={} in JNDI.", key, value);
                 }
-            } catch (ClassNotFoundException | NoClassDefFoundError e) {
+            } catch (ClassNotFoundException e) {
+                logger.trace("JNDI is not available: " + e.getMessage());
+                checkJndi = false;
+            } catch (NoClassDefFoundError e) {
                 logger.trace("JNDI is not available: " + e.getMessage());
                 checkJndi = false;
             }

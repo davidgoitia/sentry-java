@@ -25,7 +25,7 @@ public class DebugMetaInterfaceBindingTest  extends BaseTest {
     public void testSimpleDebugImage() throws Exception {
         final JsonComparisonUtil.JsonGeneratorParser jsonGeneratorParser = newJsonGenerator();
 
-        final ArrayList<DebugMetaInterface.DebugImage> images = new ArrayList<>();
+        final ArrayList<DebugMetaInterface.DebugImage> images = new ArrayList<DebugMetaInterface.DebugImage>();
         images.add(new DebugMetaInterface.DebugImage("abcd"));
 
         new NonStrictExpectations() {{

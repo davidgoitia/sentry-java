@@ -33,33 +33,33 @@ public class SentryJsonGeneratorTest extends BaseTest {
             is(jsonResource("/io/sentry/marshaller/json/jsonobjectmarshallertest/testNull.json")));
     }
 
-    @Test
-    public void testPath() throws Exception {
-        final JsonComparisonUtil.JsonOutputStreamParser jsonOutputStreamParser = newJsonOutputStream();
-
-        Path path = Paths.get("/home", "user", "tmp");
-        write(jsonOutputStreamParser.outputStream, path);
-
-        assertThat(jsonOutputStreamParser.value(),
-            is(jsonResource("/io/sentry/marshaller/json/jsonobjectmarshallertest/testPath.json")));
-    }
+//    @Test
+//    public void testPath() throws Exception {
+//        final JsonComparisonUtil.JsonOutputStreamParser jsonOutputStreamParser = newJsonOutputStream();
+//
+//        Path path = Paths.get("/home", "user", "tmp");
+//        write(jsonOutputStreamParser.outputStream, path);
+//
+//        assertThat(jsonOutputStreamParser.value(),
+//            is(jsonResource("/io/sentry/marshaller/json/jsonobjectmarshallertest/testPath.json")));
+//    }
 
     @Test
     public void testIterable() throws Exception {
         final JsonComparisonUtil.JsonOutputStreamParser jsonOutputStreamParser = newJsonOutputStream();
 
-        List<List<String>> listList = new ArrayList<>();
-        List<String> list1 = new ArrayList<>();
+        List<List<String>> listList = new ArrayList<List<String>>();
+        List<String> list1 = new ArrayList<String>();
         list1.add("1");
         list1.add("2");
         list1.add("3");
         listList.add(list1);
-        List<String> list2 = new ArrayList<>();
+        List<String> list2 = new ArrayList<String>();
         list2.add("4");
         list2.add("5");
         list2.add("6");
         listList.add(list2);
-        List<String> list3 = new ArrayList<>();
+        List<String> list3 = new ArrayList<String>();
         list3.add("7");
         list3.add("8");
         list3.add("9");
@@ -75,18 +75,18 @@ public class SentryJsonGeneratorTest extends BaseTest {
     public void testMap() throws Exception {
         final JsonComparisonUtil.JsonOutputStreamParser jsonOutputStreamParser = newJsonOutputStream();
 
-        Map<String, Map<String, Integer>> mapMap = new LinkedHashMap<>();
-        Map<String, Integer> map1 = new LinkedHashMap<>();
+        Map<String, Map<String, Integer>> mapMap = new LinkedHashMap<String, Map<String, Integer>>();
+        Map<String, Integer> map1 = new LinkedHashMap<String, Integer>();
         map1.put("one very long key that will be elided", 1);
         map1.put("two very long key that will be elided", 2);
         map1.put("three very long key that will be elided", 3);
         mapMap.put("map1", map1);
-        Map<String, Integer> map2 = new LinkedHashMap<>();
+        Map<String, Integer> map2 = new LinkedHashMap<String, Integer>();
         map2.put("four very long key that will be elided", 4);
         map2.put("five very long key that will be elided", 5);
         map2.put("six very long key that will be elided", 6);
         mapMap.put("map2", map2);
-        Map<String, Integer> map3 = new LinkedHashMap<>();
+        Map<String, Integer> map3 = new LinkedHashMap<String, Integer>();
         map3.put("seven very long key that will be elided", 7);
         map3.put("eight very long key that will be elided", 8);
         map3.put("nine very long key that will be elided", 9);
@@ -102,7 +102,7 @@ public class SentryJsonGeneratorTest extends BaseTest {
     public void testCycle() throws Exception {
         final JsonComparisonUtil.JsonOutputStreamParser jsonOutputStreamParser = newJsonOutputStream();
 
-        Map<Object, Object> cycleMap = new HashMap<>();
+        Map<Object, Object> cycleMap = new HashMap<Object, Object>();
         cycleMap.put("cycle!", cycleMap);
 
         write(jsonOutputStreamParser.outputStream, cycleMap);
@@ -193,7 +193,9 @@ public class SentryJsonGeneratorTest extends BaseTest {
     private void write(OutputStream destination, Object object) throws Exception {
         final JsonFactory jsonFactory = new JsonFactory();
 
-        try (SentryJsonGenerator generator = new SentryJsonGenerator(jsonFactory.createGenerator(destination))) {
+        SentryJsonGenerator generator = null;
+        try {
+            generator = new SentryJsonGenerator(jsonFactory.createGenerator(destination));
             configureGenerator(generator);
 
             generator.writeStartObject();
@@ -202,6 +204,7 @@ public class SentryJsonGeneratorTest extends BaseTest {
             generator.writeEndObject();
         } finally {
             destination.close();
+            generator.close();
         }
     }
 

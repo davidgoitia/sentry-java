@@ -33,7 +33,7 @@ public final class Util {
         }
 
         String[] entries = inputString.split(",");
-        Map<String, String> map = new LinkedHashMap<>();
+        Map<String, String> map = new LinkedHashMap<String, String>();
         for (String entry : entries) {
             String[] split = entry.split(":");
             if (split.length != 2) {
@@ -87,7 +87,7 @@ public final class Util {
             return Collections.emptySet();
         }
 
-        return new HashSet<>(Arrays.asList(mdcTagsString.split(",")));
+        return new HashSet<String>(Arrays.asList(mdcTagsString.split(",")));
     }
 
 

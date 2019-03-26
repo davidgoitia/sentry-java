@@ -173,10 +173,10 @@ public class SentryClientTest extends BaseTest {
         sentryClient.setDist(dist);
         final String release = "release";
         sentryClient.setRelease(release);
-        final Map<String, String> tags = new HashMap<>();
+        final Map<String, String> tags = new HashMap<String, String>();
         tags.put("name", "value");
         sentryClient.setTags(tags);
-        final Map<String, Object> extras = new HashMap<>();
+        final Map<String, Object> extras = new HashMap<String, Object>();
         extras.put("name", "value");
         sentryClient.setExtra(extras);
 
